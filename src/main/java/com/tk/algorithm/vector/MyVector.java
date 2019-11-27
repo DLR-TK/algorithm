@@ -2,27 +2,27 @@ package com.tk.algorithm.vector;
 
 import lombok.Data;
 
-import java.lang.reflect.Array;
-
 @Data
 public class MyVector<T> {
 
     private T[] data;
     private int capacity;
     private int size;
-    private Class type;
 
-    public MyVector(Class<T> type) {
-        data = (T[]) Array.newInstance(type, 10);
-        capacity = 10;
+    public MyVector(int capacity) {
+        data = (T[]) new Object[capacity];
+        this.capacity = capacity;
         size = 0;
-        this.type = type;
     }
 
-
+    public MyVector() {
+        data = (T[]) new Object[10];
+        capacity = 10;
+        size = 0;
+    }
     private void resize(int newCapacity) {
 
-        T[] newData = (T[]) Array.newInstance(type, newCapacity);
+        T[] newData = (T[]) new Object[newCapacity];
 
         for (int i = 0; i < size; i++) {
             newData[i] = data[i];
@@ -44,7 +44,7 @@ public class MyVector<T> {
         assert (size > 0);
         T ret = data[size-1];
         size--;
-        if (size == capacity / 4) {
+        if (size == capacity / 4 && capacity / 2 != 0) {
             resize(capacity / 2);
         }
 
