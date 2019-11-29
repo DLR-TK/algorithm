@@ -27,7 +27,7 @@ public class Main {
 //    }
 
     public static void main(String[] args) {
-        MyVector<Integer> vector = new MyVector<>(Integer.class);
+        MyVector<Integer> vector = new MyVector<>();
         for (int i = 0; i < 21; i++) {
             vector.pushBack(i);
         }
