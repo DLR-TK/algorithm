@@ -12,7 +12,7 @@ public class Solution {
      * @param k
      * @return
      */
-    public List<Integer> topKFrequent(int[] nums, int k) {
+    public List<Integer> topKFrequent1(int[] nums, int k) {
 
         assert (k > 0);
 
@@ -56,6 +56,37 @@ public class Solution {
             queue.poll();
         }
         Collections.reverse(res);
+        return res;
+    }
+
+
+    public List<Integer> topKFrequent2(int[] nums, int k) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
+            } else {
+                map.put(num, 1);
+            }
+        }
+
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(
+                (a, b) -> map.get(a) - map.get(b)
+        );
+        for (int key : map.keySet()) {
+            if (priorityQueue.size() < k) {
+                priorityQueue.add(key);
+            } else if (map.get(key) > map.get(priorityQueue.peek())) {
+                priorityQueue.remove();
+                priorityQueue.add(key);
+            }
+        }
+
+        LinkedList<Integer> res = new LinkedList<>();
+        while (!priorityQueue.isEmpty()) {
+            res.add(priorityQueue.remove());
+        }
         return res;
     }
 }
