@@ -3,7 +3,7 @@ package com.tk.algorithm.binary_tree_substructure_1585;
 public class Solution {
 
     public boolean isSubStructure(TreeNode A, TreeNode B) {
-        if (A == null || B == null)
+        if (A == null)
             return false;
         return process(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
